@@ -15,4 +15,7 @@ public class Studente {
     public String toString(){
         return "nome: "+nome+"\nnascita: "+ggNascita+"/"+mmNascita+"/"+aaNascita;
     }
+    public Studente getCopy(){
+        return new Studente(nome,ggNascita,mmNascita,aaNascita);
+    }
 }

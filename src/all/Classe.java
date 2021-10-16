@@ -9,7 +9,9 @@ public class Classe {
         this.aula = aula;
         this.nome = nome;
         this.studente = studente;
-        System.arraycopy(studente,0,this.studente,0,studente.length);
+        this.studente=new Studente[studente.length];
+        for(int i=0;i<studente.length;i++)
+            this.studente[i]=studente[i].getCopy();
     }
 
     @Override
