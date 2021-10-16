@@ -1,4 +1,4 @@
-package arrayInt;
+package all;
 
 public class Condominio {
     private String indirizzo,nome;

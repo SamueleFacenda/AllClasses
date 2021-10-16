@@ -1,4 +1,4 @@
-package arrayInt;
+package all;
 public class IntervalloNumeri {
     private ArrayInt arr;
     public IntervalloNumeri(int dim){

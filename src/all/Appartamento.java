@@ -1,4 +1,4 @@
-package arrayInt;
+package all;
 
 public class Appartamento {
     private int millesimi,numero;

@@ -1,4 +1,4 @@
-package arrayInt;
+package all;
 
 public class ArrayInt {
     private int[] arr;

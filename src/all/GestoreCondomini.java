@@ -1,4 +1,4 @@
-package arrayInt;
+package all;
 
 public class GestoreCondomini {
     private Condominio[] arr;
