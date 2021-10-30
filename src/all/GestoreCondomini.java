@@ -21,4 +21,11 @@ public class GestoreCondomini {
             out[j]="\nappartamento: "+arr[j].getNome()+"\nnome del proprietario con il maggior numero di millesimi: "+arr[j].getMaxMilli().getProprietario();
         return out;
     }
+    public void addAppartamento(String nome,Appartamento in){
+        int i=0;
+        while(i<arr.length&&!arr[i].getNome().equals(nome))
+            i++;
+        if(i!=arr.length)
+            ;//arr[i].add(in);
+    }
 }
