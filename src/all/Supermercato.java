@@ -119,7 +119,7 @@ public class Supermercato {
     public String toString() {
         String out="Supermercato: \n";
         for (int i = 0; i < dimL; i++)
-            out+=i+": "+catalogo[i];
+            out+=i+": "+catalogo[i]+"/n";
         return out;
     }
 }
