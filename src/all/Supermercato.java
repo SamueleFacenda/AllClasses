@@ -114,4 +114,12 @@ public class Supermercato {
         if(index<dimL)
             catalogo[index].setCosto(newCosto);
     }
+
+    @Override
+    public String toString() {
+        String out="Supermercato: \n";
+        for (int i = 0; i < dimL; i++)
+            out+=i+": "+catalogo[i];
+        return out;
+    }
 }
