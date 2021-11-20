@@ -3,22 +3,28 @@ package all;
 public class Data {
     private int giorno, mese, anno;
 
-    public Data(int giorno, int mese, int anno) {
-        this.giorno = giorno;
-        this.mese = mese;
-        this.anno = anno;
+    public Data(int giorno, int mese, int anno)throws Exception {
+        setGiorno(giorno);
+        setMese(mese);
+        setAnno(anno);
     }
 
-    public void setGiorno(int giorno) {
-        this.giorno = giorno;
+    public void setGiorno(int giorno) throws Exception {
+        if(giorno>0 && giorno <= 31)
+            this.giorno=giorno;
+        else
+            throw new Exception("giorno non valido");
     }
 
     public int getGiorno() {
         return giorno;
     }
 
-    public void setMese(int mese) {
-        this.mese = mese;
+    public void setMese(int mese) throws Exception{
+        if(mese > 0 && mese <= 12)
+            this.mese=mese;
+        else
+            throw new Exception("mese non valido");
     }
 
     public int getMese() {
@@ -159,7 +165,7 @@ public class Data {
         }
         return gio+" "+mese(mes)+" "+ann;
     }
-    public Data getCopy(){
+    public Data getCopy() throws Exception {
         return new Data(giorno,mese,anno);
     }
 }
