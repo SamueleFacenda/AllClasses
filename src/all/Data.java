@@ -1,5 +1,7 @@
 package all;
 
+import sun.util.calendar.LocalGregorianCalendar;
+
 public class Data {
     private int giorno, mese, anno;
 
@@ -7,6 +9,11 @@ public class Data {
         setGiorno(giorno);
         setMese(mese);
         setAnno(anno);
+    }
+    public Data(java.util.Date in)throws Exception{
+        setGiorno(in.getDay());
+        setMese(in.getMonth()+1);
+        setAnno(in.getYear());
     }
 
     public void setGiorno(int giorno) throws Exception {
@@ -167,5 +174,18 @@ public class Data {
     }
     public Data getCopy() throws Exception {
         return new Data(giorno,mese,anno);
+    }
+    public int getDiffAnni(Data in){
+        if(in.mese>mese)
+            return in.anno-anno;
+        else if(in.mese==mese){
+            if(in.giorno>giorno)
+                return in.anno-anno;
+            else if(in.giorno!=giorno)
+                return in.anno-anno-1;
+            else
+                return in.anno-anno;
+        }else
+            return in.anno-anno-1;
     }
 }

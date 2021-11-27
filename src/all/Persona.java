@@ -36,7 +36,7 @@ public class Persona {
         return altezza;
     }
 
-    public int getEta() {
+    public int getEta() throws Exception {
         return eta;
     }
 

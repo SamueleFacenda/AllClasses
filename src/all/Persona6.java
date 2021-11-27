@@ -2,6 +2,10 @@ package all;
 
 import org.apache.commons.validator.EmailValidator;
 import org.apache.commons.validator.routines.DateValidator;
+import sun.util.calendar.BaseCalendar;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Persona6 extends Persona{
     private String email,password;
@@ -36,5 +40,8 @@ public class Persona6 extends Persona{
             this.setDataDiNascita(new Data(Integer.parseInt(da[0]),Integer.parseInt(da[1]),Integer.parseInt(da[2])));
         }else
             throw new Exception("data invalida");
+    }
+    public int getEta()throws Exception{
+        return getDataDiNascita().getDiffAnni(new Data(GregorianCalendar.getInstance().getTime()));
     }
 }
