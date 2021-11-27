@@ -19,6 +19,7 @@ public class Persona {
         this.eta = eta;
         this.nome = nome;
         setDataDiNascita(dataDiNascita);
+        nInstanze++;
     }
     public void setDataDiNascita(Data in) throws Exception{
         Calendar cal=new GregorianCalendar();
@@ -29,6 +30,38 @@ public class Persona {
         if(in.getGiorno()<=0 || in.getGiorno()>30)
             throw new Exception("giorno non valido");
         dataDiNascita=in.getCopy();
+    }
+
+    public double getAltezza() {
+        return altezza;
+    }
+
+    public int getEta() {
+        return eta;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Data getDataDiNascita() {
+        return dataDiNascita;
+    }
+
+    public static int getnInstanze() {
+        return nInstanze;
+    }
+
+    public void setAltezza(double altezza) {
+        this.altezza = altezza;
+    }
+
+    public void setEta(int eta) {
+        this.eta = eta;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 }
