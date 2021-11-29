@@ -1,6 +1,5 @@
 package all;
 
-import sun.util.calendar.LocalGregorianCalendar;
 
 public class Data {
     private int giorno, mese, anno;
