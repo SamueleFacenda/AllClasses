@@ -109,4 +109,9 @@ public class Studente{
     public void unsign(){
         matricola=-1;
     }
+    @Override
+    public String toString(){
+        return "nome: "+nome+" "+codiceFiscale+"\ncodice fiscale: "+codiceFiscale+"\ndata di nascita: "+dataDiNascita.stampa()+
+                (matricola==-1?"\nnon iscritto a nessuna facolta":("\nmatricola: "+matricola));
+    }
 }

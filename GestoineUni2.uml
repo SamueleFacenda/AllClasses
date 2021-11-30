@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>all.GestoineUni2</OriginalElement>
+  <nodes>
+    <node x="268.0" y="0.0">all.GestoineUni2.Studente</node>
+    <node x="0.0" y="66.0">all.GestoineUni2.Facolta</node>
+    <node x="141.24999999999997" y="425.0">all.GestoineUni2.GestoreIscrizioniUni</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="all.GestoineUni2.GestoreIscrizioniUni" target="all.GestoineUni2.Studente" relationship="CREATE">
+      <point x="67.0" y="-226.5" />
+      <point x="342.25" y="405.0" />
+      <point x="420.0" y="405.0" />
+      <point x="420.0" y="385.0" />
+      <point x="488.5" y="385.0" />
+      <point x="73.5" y="182.5" />
+    </edge>
+    <edge source="all.GestoineUni2.GestoreIscrizioniUni" target="all.GestoineUni2.Facolta" relationship="TO_ONE">
+      <point x="-67.0" y="-226.5" />
+      <point x="208.24999999999997" y="405.0" />
+      <point x="118.99999999999997" y="405.0" />
+      <point x="118.99999999999997" y="395.0" />
+      <point x="62.0" y="395.0" />
+      <point x="-62.0" y="116.5" />
+    </edge>
+    <edge source="all.GestoineUni2.GestoreIscrizioniUni" target="all.GestoineUni2.Facolta" relationship="CREATE">
+      <point x="67.0" y="-226.5" />
+      <point x="342.25" y="405.0" />
+      <point x="420.0" y="405.0" />
+      <point x="420.0" y="385.0" />
+      <point x="186.0" y="385.0" />
+      <point x="62.0" y="116.5" />
+    </edge>
+    <edge source="all.GestoineUni2.GestoreIscrizioniUni" target="all.GestoineUni2.Studente" relationship="TO_ONE">
+      <point x="-67.0" y="-226.5" />
+      <point x="208.24999999999997" y="405.0" />
+      <point x="118.99999999999997" y="405.0" />
+      <point x="118.99999999999997" y="395.0" />
+      <point x="341.5" y="395.0" />
+      <point x="-73.5" y="182.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="281.0" y="439.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

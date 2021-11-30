@@ -66,4 +66,8 @@ public class Facolta {
     public Facolta getCopy(){
         return new Facolta(nome,newMatricola,maxMatricola);
     }
+    @Override
+    public String toString(){
+        return "Facoltá: "+nome+"\nprossima matricola: "+newMatricola+"\nmassima matricola: "+maxMatricola;
+    }
 }

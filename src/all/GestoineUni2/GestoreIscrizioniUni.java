@@ -18,7 +18,7 @@ public class GestoreIscrizioniUni {
     /**
      * numero fisso di studenti per ogni facolta
      */
-    private static int STUDPERFAC= (int) 10e6;
+    private static int STUDPERFAC= (int) 1e6;
 
     /**
      * costruttore vuoto, i componenti vengono aggiunti mano a mano
@@ -125,6 +125,7 @@ public class GestoreIscrizioniUni {
         if(pos==-1)
             throw new Exception("facolta inesistente");
         //rimosione senza shift
+        arrFac[pos]=null;
         //rimuove l'iscrizone a tutti gli studenti iscritti alla facolta
         for (int i = 0; i < nStud; i++) {
             if(arrStud[i].getMatricola()/STUDPERFAC==pos)
@@ -162,8 +163,14 @@ public class GestoreIscrizioniUni {
             arr2[i]= arrFac[i];
         arrFac =arr2;
     }
+
+    /**
+     * metodo per il calocolo del numero di facolta gestite
+     * @return numero di facolta gestite
+     */
     public int getNFac(){
         int out=0;
+        //costrutto for-each
         for (Facolta current:
              arrFac) {
             if(current!=null)
@@ -173,6 +180,7 @@ public class GestoreIscrizioniUni {
     }
     private int getNullCellFac(){
         int i=0;
+        //scorro finché non trovo una cella vuota
         while(i<arrFac.length && arrFac[i++]!= null);
         return i==arrFac.length?-1:i;
     }
@@ -182,13 +190,33 @@ public class GestoreIscrizioniUni {
             arr2[i]=arrStud[i];
         arrStud=arr2;
     }
+
+    /**
+     * metodo per la ricerca del nome della facolta partendo dalla matricola inserita
+     * @param matricola matricola dello studente
+     * @return facolta a cui lo studente é iscritto
+     * @throws Exception se la matricola non é valida
+     */
     public String getFacolta(int matricola)throws Exception{
         return searchFacFromMatr(matricola).getNome();
     }
     private Facolta searchFacFromMatr(int matricola)throws Exception{
         int pos=matricola/STUDPERFAC;
-        if(pos> arrFac.length || arrFac[pos]==null)
+        //controllo se la matriclola é valida, quindi se appartiene a una facolta e se é stata realmente assegnata
+        if(pos> arrFac.length || arrFac[pos]==null || matricola>arrFac[pos].getMaxMatricola())
             throw new Exception("matricola invalida");
         return arrFac[pos];
+    }
+    @Override
+    public String toString(){
+        String out="Gestione iscrizioni all'univertsià:\nStudenti:\n";
+        for (int i = 0; i < nStud; i++)
+            out+=arrStud[i]+"\n";
+        out+="Facoltà:\n";
+        for (Facolta current :
+                arrFac) {
+            if(current!=null) out+=current+"\n";
+        }
+        return out;
     }
 }
