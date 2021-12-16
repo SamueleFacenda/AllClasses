@@ -60,7 +60,7 @@ public class Persona {
         this.eta = eta;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome)throws Exception {
         this.nome = nome;
     }
 

@@ -30,8 +30,8 @@ public class Persona6 extends Persona{
             throw new Exception("email non valida");
     }
 
-    public void setPassword(String password) {
-
+    public void setPassword(String password)throws Exception {
+        this.password=password;
     }
     public void setData(String in)throws Exception{
         if(DateValidator.getInstance().validate(in)!=null){
