@@ -1,6 +1,6 @@
 package all;
 
-import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.DateValidator;
 
 import java.util.Date;
