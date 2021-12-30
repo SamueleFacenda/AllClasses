@@ -7,6 +7,7 @@ package all.pescaoggetti;
  * anche degli altri giocatori.
  * Vengono inoltre salvati in ordine i nomi degli oggetti pescati, il turno non passa finchè non viene pescato un
  * oggetto, dopo che l'ho pescato lo tolgo dal tabellone.
+ * Una cella con valore 0 vuol dire che è già stata controllata
  */
 public class PescaOggetti {
     private int giocatoreCorrente,nOggettiMancanti;
@@ -99,32 +100,41 @@ public class PescaOggetti {
      */
     public boolean pesca(int x,int y){
         boolean out=false;
-        if(!isEnded()){
+        if (isEnded()) {
+            messageAfterDraw="partita finita, non ci sono più oggetti da trovare";
+        } else {
             //controllo input
-            if(x>=0&&x< tabellone[0].length&&y>=0&&y< tabellone.length) {
+            if (x < 0 || x >= tabellone[0].length || y < 0 || y >= tabellone.length) {
+                messageAfterDraw="coordinate non valide";
+            } else {
                 Oggetto pescato = tabellone[y][x];
                 //controllo se la cella era piena
-                if (pescato != null) {
-                    //aggiungo alla lista delle pescate l'oggetto corrente, modifico tutti i valori da modificare
-                    pescate[tabellone.length * 4 - nOggettiMancanti] = pescato.getNome();
-                    nOggettiMancanti--;
-                    punteggio[giocatoreCorrente] += pescato.getValore();
-                    tabellone[y][x] = null;
-                    //controllo se la cella aveva un malus, se sì lo applico a tutti gli altri giocatori
-                    if (pescato instanceof OggettoConMalus) {
-                        for (int i = 0; i < punteggio.length; i++)
-                            if (i != giocatoreCorrente) punteggio[i] -= ((OggettoConMalus) pescato).getMalus();
-                    }
-                    //passo al giocatore successivo, se il giro è finito lo reincomincio
-                    giocatoreCorrente = (giocatoreCorrente + 1) % punteggio.length;
-                    out = true;
-                    messageAfterDraw="pescata: "+pescato.getNome();
-                }else
+                if (pescato == null) {
+                    out=true;
                     messageAfterDraw="cella vuota";
-            }else
-                messageAfterDraw="coordinate non valide";
-        }else
-            messageAfterDraw="partita finita, non ci sono più oggetti da trovare";
+                } else {
+                    //controllo che la cella non sia già stata pescata
+                    if (pescato.getValore() == 0) {
+                        messageAfterDraw = "cella già controllata";
+                    } else {
+                        //aggiungo alla lista delle pescate l'oggetto corrente, modifico tutti i valori da modificare
+                        pescate[tabellone.length * 4 - nOggettiMancanti] = pescato.getNome();
+                        nOggettiMancanti--;
+                        punteggio[giocatoreCorrente] += pescato.getValore();
+                        tabellone[y][x] = new Oggetto(0, "");//oggetto vuoto, vuol dire che la cella è già stata controllata
+                        //controllo se la cella aveva un malus, se sì lo applico a tutti gli altri giocatori
+                        if (pescato instanceof OggettoConMalus) {
+                            for (int i = 0; i < punteggio.length; i++)
+                                if (i != giocatoreCorrente) punteggio[i] -= ((OggettoConMalus) pescato).getMalus();
+                        }
+                        //passo al giocatore successivo, se il giro è finito lo reincomincio
+                        giocatoreCorrente = (giocatoreCorrente + 1) % punteggio.length;
+                        out = true;
+                        messageAfterDraw = "pescata: " + pescato.getNome();
+                    }
+                }
+            }
+        }
         return out;
     }
 
@@ -138,6 +148,11 @@ public class PescaOggetti {
             out[i]=pescate[i];
         return out;
     }
+
+    /**
+     * ritorna il messaggio relativo all'ultima pescata
+     * @return esito dell'ultima pescata
+     */
     public String getMessageAfterDraw(){
         return messageAfterDraw;
     }
