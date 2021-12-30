@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MainPescaOggetti {
     public static void main(String[] args) {
         Scanner in=new Scanner(System.in);
-        PescaOggetti ps=null;
+        Partita ps=null;
         boolean correct=false;
         do{
             System.out.println("inserire il numero di righe: ");
@@ -14,7 +14,7 @@ public class MainPescaOggetti {
             int m=in.nextInt();
             System.out.println("inserire il numero di giocatori: ");
             try{
-                ps=new PescaOggetti(in.nextInt(),n,m);
+                ps=new Partita(in.nextInt(),n,m);
                 correct=true;
             }catch (Exception e){
                 System.out.println(e.getMessage());

@@ -9,7 +9,7 @@ package all.pescaoggetti;
  * oggetto, dopo che l'ho pescato lo tolgo dal tabellone.
  * Una cella con valore 0 vuol dire che è già stata controllata
  */
-public class PescaOggetti {
+public class Partita {
     private int giocatoreCorrente,nOggettiMancanti;
     private int[] punteggio;
     private String[] pescate;
@@ -24,7 +24,7 @@ public class PescaOggetti {
      * @param nColonne numero di colonne(M)
      * @throws Exception se i valori non sono validi per una partita
      */
-    public PescaOggetti(int nGiocatori, int nRighe,int nColonne)throws Exception{
+    public Partita(int nGiocatori, int nRighe, int nColonne)throws Exception{
         //controllo l'area della tabella
         if(nRighe*nColonne<nRighe*4)
             throw new Exception("valore di righe e colonne troppo basso");
@@ -111,7 +111,7 @@ public class PescaOggetti {
                 //controllo se la cella era piena
                 if (pescato == null) {
                     out=true;
-                    messageAfterDraw="cella vuota";
+                    messageAfterDraw="non hai pescato niente";
                 } else {
                     //controllo che la cella non sia già stata pescata
                     if (pescato.getValore() == 0) {
@@ -171,5 +171,19 @@ public class PescaOggetti {
             out+="partita in corso, numero di oggetti da trovare: "+nOggettiMancanti;
         }
         return out;
+    }
+
+    /**
+     * controlla chi è il vincitore
+     * @return numero del giocatore vincitore
+     * @throws Exception se la partita non è finita
+     */
+    public int getVincitore() throws Exception{
+        if(!isEnded())
+            throw new Exception("partita non finita");
+        int max=0;
+        for (int i = 1; i < punteggio.length; i++)
+            if(punteggio[i]>punteggio[max]) max=1;
+        return max;
     }
 }
