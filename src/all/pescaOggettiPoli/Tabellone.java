@@ -43,6 +43,6 @@ public class Tabellone {
         return tab[y][x]==null;
     }
     public boolean isDrawed(int x,int y){
-        return tab[y][x].getValore()==0;
+        return tab[y][x]!=null && tab[y][x].getValore()==0;
     }
 }

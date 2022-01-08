@@ -12,6 +12,6 @@ public class Gomma extends Oggetto{
 
     @Override
     public String toString() {
-        return "Gomma"+(isRossa?"":" rossa");
+        return "Gomma"+(isRossa?" rossa ":"");
     }
 }

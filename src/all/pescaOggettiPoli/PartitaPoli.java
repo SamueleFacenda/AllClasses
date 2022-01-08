@@ -82,7 +82,7 @@ public class PartitaPoli {
         if(isEnded()){
             try {
                 out += "Partita finita\nVincitore: " + getWinner()+"\nPescate: \n";
-                for (Oggetto og : pescate) out+= og.toString();
+                for (Oggetto og : pescate) out+= og.toString()+"\n";
             }catch(Exception e){}
         }else{
             out+="Giocatore corrente: "+nPlayer+"\nOggetti mancanti: "+objectLast;
