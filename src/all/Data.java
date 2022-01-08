@@ -1,6 +1,8 @@
 package all;
 
 
+import java.util.regex.Pattern;
+
 public class Data {
     private int giorno, mese, anno;
 
@@ -14,7 +16,17 @@ public class Data {
         setMese(in.getMonth()+1);
         setAnno(in.getYear());
     }
-
+    public Data(String in)throws Exception{
+        if(!validaData(in))
+            throw new Exception("formato non valido");
+        String[] num=in.split("/");
+        setGiorno(Integer.parseInt(num[0]));
+        setMese(Integer.parseInt(num[1]));
+        setAnno(Integer.parseInt(num[2]));
+    }
+    public static boolean validaData(String in){
+        return Pattern.compile("[0-9]/[0-9]/[0-9]").matcher(in).matches();
+    }
     public void setGiorno(int giorno) throws Exception {
         if(giorno>0 && giorno <= 31)
             this.giorno=giorno;
@@ -174,6 +186,20 @@ public class Data {
     public Data getCopy() throws Exception {
         return new Data(giorno,mese,anno);
     }
+    public boolean isDopo(Data check){
+        boolean out=false;
+        if(check.anno<anno)
+            out=true;
+        else if(check.anno==anno){
+            if(check.mese<mese)
+                out=true;
+            else if(check.mese==mese){
+                if(check.giorno<giorno)
+                    out=true;
+            }
+        }
+        return out;
+    }
     public int getDiffAnni(Data in){
         if(in.mese>mese)
             return in.anno-anno;
@@ -187,4 +213,26 @@ public class Data {
         }else
             return in.anno-anno-1;
     }
+    public static int getDiffInGiorni(Data data1,Data data2){
+        int anni=data1.anno- data2.anno,mesi=data1.mese- data2.mese;
+        int out=anni*365-mesi*31;
+        out-=data1.giorno- data2.giorno;
+        return out;
+    }
+    public static int differenzaInSettimane(Data data1,Data data2){
+        return getDiffInGiorni(data1,data2)/7;
+    }
+    public static int getDiffInMesi(Data data1,Data data2){
+        return getDiffInGiorni(data1,data2)/31;
+    }
+    public static String diffInGiorniMesiAnni(Data data1, Data data2){
+        int diff=getDiffInGiorni(data1,data2);
+        String out=Integer.toString((int)(diff/365));
+        diff%=365;
+        out=Integer.toString((int)(diff/31))+"/"+out;
+        diff%=31;
+        return ""+diff+"/"+out;
+    }
+
+
 }

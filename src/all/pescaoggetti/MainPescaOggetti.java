@@ -21,7 +21,7 @@ public class MainPescaOggetti {
                 System.out.println("reinserire tutti i dati: ");
             }
         }while(!correct);
-        int x,y;
+        int y;
         while(!ps.isEnded()){
             System.out.println("giocatore corrente: "+ps.getGiocatoreCorrente());
             do{
