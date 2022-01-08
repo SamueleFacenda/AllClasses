@@ -1,15 +1,13 @@
 package all.pescaOggettiPoli.oggetto;
 
 public class Oggetto {
-    protected int valore;
     public Oggetto(){
-        this.valore= 0;
     }
     public int getValore(){
-        return valore;
+        return 0;
     }
     @Override
     public String toString() {
-        return "Oggetto, valore: "+valore;
+        return "Oggetto, valore: "+0;
     }
 }
