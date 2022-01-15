@@ -111,6 +111,7 @@ public class Partita {
                 //controllo se la cella era piena
                 if (pescato == null) {
                     out=true;
+                    giocatoreCorrente = (giocatoreCorrente + 1) % punteggio.length;
                     messageAfterDraw="non hai pescato niente";
                 } else {
                     //controllo che la cella non sia già stata pescata

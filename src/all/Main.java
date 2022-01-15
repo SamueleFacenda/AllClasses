@@ -1,12 +1,28 @@
 package all;
 
+import all.Poli.Figlio;
+import all.Poli.Padre;
+
 public class Main {
     public static void main(String[] args){
-       Prodotto[] arr={new Prodotto("ciao",0.2,34),new Prodotto("ciao2",0.4,34)};
-       Prodotto prr=new Prodotto("code",12,23);
-       Supermercato sm=new Supermercato(arr);
-       System.out.println(sm);
-       sm.add(prr);
-       System.out.println(sm);
+      Padre p=new Padre();
+        Figlio f=new Figlio();
+        Padre pf=new Figlio();
+        Padre pp=pf;
+        System.out.println(p);
+        System.out.println(pp);
+        pp.incrementa();
+        System.out.println(p);
+        System.out.println(pp);
+        pp.incrementa();
+        System.out.println(p);
+        System.out.println(pp);
+        f.incrementa();
+        System.out.println(f);
+        pf.incrementa();
+        System.out.println(pf);
+        Figlio ff;
+        ff=(Figlio)pp;
+        System.out.println(ff);
     }
 }

@@ -40,6 +40,7 @@ public class Persona6 extends Persona{
         }else
             throw new Exception("data invalida");
     }
+    @Override
     public int getEta()throws Exception{
         return getDataDiNascita().getDiffAnni(new Data(GregorianCalendar.getInstance().getTime()));
     }
