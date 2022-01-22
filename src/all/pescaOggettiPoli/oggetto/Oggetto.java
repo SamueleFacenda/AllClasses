@@ -8,6 +8,6 @@ public class Oggetto {
     }
     @Override
     public String toString() {
-        return "Oggetto, valore: "+0;
+        return "Oggetto, valore: "+getValore();
     }
 }

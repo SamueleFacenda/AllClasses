@@ -8,6 +8,7 @@ package all.pescaoggetti;
  * Vengono inoltre salvati in ordine i nomi degli oggetti pescati, il turno non passa finchè non viene pescato un
  * oggetto, dopo che l'ho pescato lo tolgo dal tabellone.
  * Una cella con valore 0 vuol dire che è già stata controllata
+ * @author Samuele Facenda
  */
 public class Partita {
     private int giocatoreCorrente,nOggettiMancanti;

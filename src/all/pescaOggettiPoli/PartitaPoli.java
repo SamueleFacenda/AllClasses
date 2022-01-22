@@ -3,7 +3,6 @@ package all.pescaOggettiPoli;
 
 import all.pescaOggettiPoli.oggetto.Forbice;
 import all.pescaOggettiPoli.oggetto.Oggetto;
-import org.apache.commons.validator.routines.EmailValidator;
 
 public class PartitaPoli {
     private Tabellone tab;

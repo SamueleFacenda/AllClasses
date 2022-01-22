@@ -1,7 +1,6 @@
 package all.pescaOggettiPoli;
 
 import all.pescaOggettiPoli.oggetto.*;
-import javafx.scene.control.Tab;
 
 public class Tabellone {
     private Oggetto[][] tab;
