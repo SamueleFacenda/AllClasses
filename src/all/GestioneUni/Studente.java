@@ -1,6 +1,6 @@
 package all.GestioneUni;
 
-import all.Data;
+import all.persona.Data;
 
 public class Studente implements KeyValueClass{
     private String nome,cognome,codiceFiscale;

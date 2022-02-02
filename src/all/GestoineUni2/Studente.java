@@ -1,7 +1,6 @@
 package all.GestoineUni2;
 
-import all.Data;
-import all.GestioneUni.KeyValueClass;
+import all.persona.Data;
 
 /**
  * classe che rappresenta uno studente con tutti i suoi dati anagrafici,

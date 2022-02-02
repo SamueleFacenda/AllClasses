@@ -1,6 +1,6 @@
 package all.GestioneUni;
 
-import all.Data;
+import all.persona.Data;
 
 public class MainUni {
     public static void main(String[] args) {
