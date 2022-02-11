@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Persona">
+    <output-path>$PROJECT_DIR$/out/artifacts/Persona</output-path>
+    <root id="archive" name="Persona.jar">
+      <element id="dir-copy" path="$PROJECT_DIR$/src/all/persona" />
+    </root>
+  </artifact>
+</component>
