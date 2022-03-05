@@ -1,6 +1,8 @@
 package all.comparable;
 
 
+import java.util.Objects;
+
 public class Piatto implements Comparable<Piatto> {
     //PASTA(10,"pasta",Portata.PRIMO),BISTECCHA(45,"bis_tecca",Portata.SECONDO),PATATE(12,"patate",Portata.CONTORNO);
 
@@ -39,7 +41,22 @@ public class Piatto implements Comparable<Piatto> {
     public Portata getPo() {
         return po;
     }
-    public int compareTo(Piatto com){
-        return po.getN()-com.getPortata().getN();
+    public int compareTo(Piatto com) {
+        return po.getN() - com.getPortata().getN();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piatto piatto = (Piatto) o;
+        return Double.compare(piatto.costo, costo) == 0 &&
+                Objects.equals(nome, piatto.nome) &&
+                po == piatto.po;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(costo, nome, po);
     }
 }
