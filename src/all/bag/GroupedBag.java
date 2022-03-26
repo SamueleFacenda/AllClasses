@@ -119,7 +119,7 @@ public class GroupedBag<T> implements IBag<T>,Iterable<T> {
         private GroupedBag<T> currentBag;
         private int i;
         public GroupedBagIterator(GroupedBag<T> in){
-            current=new NodeDouble<>(null,in.getFirst(),null);
+            current=new NodeDouble<T>(null, (NodeDouble<T>) in.getFirst(),null);
             i=0;
         }
 
