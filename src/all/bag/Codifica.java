@@ -7,7 +7,6 @@ public class Codifica {
         return (char)(num+(num<10?48:55));
     }
     public static int deconvert(char num){
-        int n=((int)num<65?48:55);
         return (int)num-((int)num<65?48:55);
     }
     public static String codifica(int num,int base){
@@ -26,7 +25,7 @@ public class Codifica {
     public static int decodifica(String num,int base){
         int out=0,i=num.length()-1;
         while(i>=0){
-            out+=convert(num.charAt(i))*Math.pow(base,num.length()-i-1);
+            out+=deconvert(num.charAt(i))*Math.pow(base,num.length()-i-1);
             i--;
         }
         return out;

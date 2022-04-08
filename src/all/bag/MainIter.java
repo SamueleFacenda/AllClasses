@@ -14,6 +14,6 @@ public class MainIter {
         System.out.println(borsa.getFrequency("secondo"));
         borsa.clear();
         System.out.println(borsa.toString());
-
+        System.out.println("    marcel");
     }
 }
