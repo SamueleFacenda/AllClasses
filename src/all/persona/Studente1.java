@@ -2,6 +2,7 @@ package all.persona;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Studente1 extends Persona7{
     public static final String SCUOLA="I.T.T. Buonarroti";
@@ -104,5 +105,23 @@ public class Studente1 extends Persona7{
     }
     public Double mediaVoti(){
         return Arrays.stream(voti).reduce(0.0, Double::sum)/voti.length;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Studente1 studente1 = (Studente1) o;
+        return classe.equals(studente1.classe) &&
+                ripetente.equals(studente1.ripetente) &&
+                Arrays.equals(voti, studente1.voti);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), classe, ripetente);
+        result = 31 * result + Arrays.hashCode(voti);
+        return result;
     }
 }

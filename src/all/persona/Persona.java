@@ -2,13 +2,14 @@ package all.persona;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public class Persona {
     private double altezza;
     private int eta;
     private String nome;
     private Data dataDiNascita;
-    private static int nInstanze;
+    protected static int nInstanze;
 
     public Persona(){
         nInstanze++;
@@ -36,7 +37,7 @@ public class Persona {
         return altezza;
     }
 
-    public int getEta() throws Exception {
+    public int getEta(){
         return eta;
     }
 
@@ -64,4 +65,19 @@ public class Persona {
         this.nome = nome;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Persona persona = (Persona) o;
+        return Double.compare(persona.altezza, altezza) == 0 &&
+                eta == persona.eta &&
+                Objects.equals(nome, persona.nome) &&
+                Objects.equals(dataDiNascita, persona.dataDiNascita);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(altezza, eta, nome, dataDiNascita);
+    }
 }

@@ -4,6 +4,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.DateValidator;
 
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public class Persona6 extends Persona {
     private String email,password;
@@ -40,7 +41,26 @@ public class Persona6 extends Persona {
             throw new Exception("data invalida");
     }
     @Override
-    public int getEta()throws Exception{
-        return getDataDiNascita().getDiffAnni(new Data(GregorianCalendar.getInstance().getTime()));
+    public int getEta(){
+        try{
+            return getDataDiNascita().getDiffAnni(new Data(GregorianCalendar.getInstance().getTime()));
+        }catch(Exception e){
+            return -1;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Persona6 persona6 = (Persona6) o;
+        return email.equals(persona6.email) &&
+                password.equals(persona6.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), email, password);
     }
 }
