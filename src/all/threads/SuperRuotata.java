@@ -9,8 +9,8 @@ public class SuperRuotata extends Auto{
     }
     @Override
     protected void dosso(){
-        if(ruote>2)
-            velocita*=1.05;
+        if(ruote<2)
+            velocita*=0.97;
     }
     @Override
     public String toString(){

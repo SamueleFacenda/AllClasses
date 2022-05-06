@@ -10,7 +10,7 @@ public class Planante extends Auto{
     @Override
     protected void pedana(){
         if(alettone>90)
-            velocita*=1.05;
+            velocita*=1.02;
     }
     @Override
     public String toString(){
