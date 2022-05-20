@@ -37,11 +37,23 @@ public class Rocco {
         return c ? due : uno;
     }
 
+    public static long fibonacciBestissimo(int n){
+        long out = 1,sum = 1,tmp;
+        int i=3;
+        while(i<=n){
+            tmp=out;
+            out+=sum;
+            sum=out;
+            i++;
+        }
+        return out;
+    }
+
 
 
 
 
     public static void main(String[] args) {
-        System.out.println(fibonacciBest(35757));
+        System.out.println(fibonacciBestissimo(60));
     }
 }
