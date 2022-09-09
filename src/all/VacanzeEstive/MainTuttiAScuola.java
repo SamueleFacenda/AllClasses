@@ -3,6 +3,7 @@ package all.VacanzeEstive;
 import java.util.Arrays;
 
 public class MainTuttiAScuola {
+    //TODO aggiungere commenti
     public static void main(String[] args) {
         Studente[] studenti = {
                 new Studente("Mario Rossi"),

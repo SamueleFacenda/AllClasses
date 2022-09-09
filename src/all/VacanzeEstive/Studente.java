@@ -7,6 +7,7 @@ import java.util.Objects;
  * class Studente implements Identificable
  * with name and code, haveSameId method that check for same class and same code,
  * static attributes, getter, toString and equals
+ * Tutti i metodi sono classici di java o spiegati nelle interfacce
 **/
 class Studente implements Identificable, Clonable2<Studente> {
     private final String name;

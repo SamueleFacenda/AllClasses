@@ -66,6 +66,13 @@ public class Corsa implements Identificable, Clonable2<Corsa> {
         return false;
     }
 
+    /**
+     * controlla se la prima fermata é prima della seconda,
+     * così, in qualunque altro caso(le fermate non esistono...) ritorna false
+     * @param f1 la prima fermata
+     * @param f2 la seconda fermata
+     * @return true se la prima fermata é prima della seconda, false altrimenti
+     */
     public boolean isFermataBefore(int f1, int f2) {
         int i = 0;
         if(-1 == f2)
