@@ -109,4 +109,8 @@ public class Pullman implements Identificable, Clonable2<Pullman>{
         }
         return false;
     }
+
+    public boolean contains(Studente s){
+        return passeggeri.contains(s);
+    }
 }

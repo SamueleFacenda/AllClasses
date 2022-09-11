@@ -23,20 +23,22 @@ public class GestioneTuttiAScuola {
     public String timbroStudente(int codiceStudente, String targa){
         Studente s = studenti.get(codiceStudente);
         Pullman p = pullman.get(targa);
-        Fermata f = fermate.get(p.getUltimaFermata());
-        if(p.isFull()){
-            //la corsa non è bastata, attivo quella supplementare
-            //se non ce n'è già un bus sulla stessa corsa che non è ancora arrivato
-            Corsa c = corse.get(p.getCorsa());
-            if(!checkForNextBus(c,f))
-                return corsaSupplementare(c);
-            else
-                return "Corsa supplementare già attiva";
-        }
-        else {
-            if(f.contains(s))
-                throw new RuntimeException("Studente non uscito dalla fermata");
-            p.addStudente(s);
+
+        if(!p.contains(s)){
+            Fermata f = fermate.get(p.getUltimaFermata());
+            if (p.isFull()) {
+                //la corsa non è bastata, attivo quella supplementare
+                //se non ce n'è già un bus sulla stessa corsa che non è ancora arrivato
+                Corsa c = corse.get(p.getCorsa());
+                if (!checkForNextBus(c, f))
+                    return corsaSupplementare(c);
+                else
+                    return "Corsa supplementare già attiva";
+            } else {
+                if (f.contains(s))
+                    throw new RuntimeException("Studente non uscito dalla fermata");
+                p.addStudente(s);
+            }
         }
         return null;
     }
