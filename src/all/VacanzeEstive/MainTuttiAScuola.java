@@ -3,7 +3,6 @@ package all.VacanzeEstive;
 import java.util.Arrays;
 
 public class MainTuttiAScuola {
-    //TODO aggiungere commenti
     public static void main(String[] args) {
         Studente[] studenti = {
                 new Studente("Mario Rossi"),
@@ -56,7 +55,9 @@ public class MainTuttiAScuola {
             gestione.timbroStudente(studenti[i*2].getCode(), fermate[i+1].getCode());
             gestione.timbroStudente(studenti[i*2+1].getCode(), fermate[i+1].getCode());
         }
+        //finchè c'è almeno un pullman in corsa
         while(Arrays.stream(pullman).anyMatch(Pullman::isOnRoad)){
+            //per ogni pullman in corsa
             Arrays.stream(pullman)
                     .filter(Pullman::isOnRoad)
                     .forEach(p -> {
