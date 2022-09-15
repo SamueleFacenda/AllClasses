@@ -59,27 +59,27 @@ public class MainTuttiAScuola {
         while(Arrays.stream(pullman).anyMatch(Pullman::isOnRoad)){
             //per ogni pullman in corsa
             Arrays.stream(pullman)
-                    .filter(Pullman::isOnRoad)
-                    .forEach(p -> {
-                        //faccio avanzare il pullman
-                        gestione.avanzaPullman(p.getTarga());
-                        System.out.println("pullman " + p.getTarga() + " arrivato  a " + p.getUltimaFermata());
+                .filter(Pullman::isOnRoad)
+                .forEach(p -> {
+                    //faccio avanzare il pullman
+                    gestione.avanzaPullman(p.getTarga());
+                    System.out.println("pullman " + p.getTarga() + " arrivato  a " + p.getUltimaFermata());
 
-                        //la fermata del pullman
-                        Fermata f = Arrays.stream(fermate).filter(a -> a.getCode() == p.getUltimaFermata()).findFirst().orElse(null);
-                        //per ogni pullman in corsa
-                        Arrays.stream(studenti)
-                                //prendo gli studenti che sono nella fermata(se la corsa è finita la fermata sarà null)
-                                .filter(s -> f != null && f.contains(s))
-                                .forEach(s -> {
-                                            String tmp = gestione.timbroStudente(s.getCode(), p.getTarga());
-                                            if(tmp != null){
-                                                System.out.println("attivata corsa supplementare, targa: " + tmp);
-                                            }else{
-                                                System.out.println("studente " + s.getName() + " salito su pullman " + p.getTarga());
-                                            }
-                                        });
-                    });
+                    //la fermata del pullman
+                    Fermata f = Arrays.stream(fermate).filter(a -> a.getCode() == p.getUltimaFermata()).findFirst().orElse(null);
+                    //per ogni pullman in corsa
+                    Arrays.stream(studenti)
+                        //prendo gli studenti che sono nella fermata(se la corsa è finita la fermata sarà null)
+                        .filter(s -> f != null && f.contains(s))
+                        .forEach(s -> {
+                            String tmp = gestione.timbroStudente(s.getCode(), p.getTarga());
+                            if(tmp != null){
+                                System.out.println("attivata corsa supplementare, targa: " + tmp);
+                            }else{
+                                System.out.println("studente " + s.getName() + " salito su pullman " + p.getTarga());
+                            }
+                        });
+                });
         }
 
     }
