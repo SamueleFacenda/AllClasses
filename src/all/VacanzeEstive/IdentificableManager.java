@@ -17,7 +17,10 @@ public class IdentificableManager<T extends Identificable & Clonable2<T>> {
             }catch(CloneNotSupportedException e){}
     }
     public T get(Object id) {
-        return list.stream().filter(a -> a.haveThisID(id)).findAny().orElse(null);
+        return list.stream()
+                .filter(a -> a.haveThisID(id))
+                .findAny()
+                .orElse(null);
     }
     public Stream<T> stream() {
         return list.stream();
