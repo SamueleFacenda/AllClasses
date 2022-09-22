@@ -1,8 +1,6 @@
 package all;
 
-import all.Poli.Figlio;
-import all.Poli.Padre;
-import all.bag.Codifica;
+import all.quarta.bag.Codifica;
 
 import java.util.Scanner;
 

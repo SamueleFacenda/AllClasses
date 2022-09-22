@@ -2,7 +2,7 @@
   <artifact type="jar" name="data">
     <output-path>$PROJECT_DIR$/out/artifacts/data</output-path>
     <root id="archive" name="data.jar">
-      <element id="file-copy" path="$PROJECT_DIR$/src/all/persona/Data.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/all/quarta/persona/Data.java" />
     </root>
   </artifact>
 </component>
