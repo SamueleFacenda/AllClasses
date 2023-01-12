@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerFotoTCP {
-    private int port;
+    private int port = 4444;
     private String host = "10.0.75.21";
 
     private Socket socket;
@@ -30,7 +30,7 @@ public class ServerFotoTCP {
         }
     }
     private void stampaCmd(String in){
-        ServerFoto.getInstance().stampaCmd(in);
+        ;//ServerFoto.getInstance().stampaCmd(in);
     }
 
     public static void main(String[] args) {
