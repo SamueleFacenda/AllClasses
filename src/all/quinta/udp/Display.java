@@ -9,16 +9,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Display {
-    private int[] temperatura = {40, 18, 12};
-    private String[] nomeTemperatura = {"acqua calda", "livello comfort", "livello economia"};
-    private static final int[][] range= {
+    private final int[] temperatura = {40, 18, 12};
+    private static final String[] NOME_TEMPERATURA = {"acqua calda", "livello comfort", "livello economia"};
+    private static final int[][] RANGE = {
         {40, 55},
         {18, 30},
         {12, 16}
     };
     private DatagramSocket socket;
     private byte[] bufferIN, bufferOUT;
-    private Map<InetSocketAddress, String> register;
+    private final Map<InetSocketAddress, String> register;
 
     public Display(int port){
         try{
@@ -34,7 +34,7 @@ public class Display {
         System.out.println("Server partito in esecuzione...");
         System.out.println("Temperatura impostata: ");
         for(int i = 0; i < temperatura.length; i++){
-            System.out.println("Temperatura " + nomeTemperatura[i] + ": " + temperatura[i]);
+            System.out.println("Temperatura " + NOME_TEMPERATURA[i] + ": " + temperatura[i]);
         }
         DatagramPacket receivePacket, sendPacket;
         receivePacket = new DatagramPacket(bufferIN, bufferIN.length);
@@ -76,10 +76,10 @@ public class Display {
                     // check if temperatures are in range
                     ok = true;
                     for (int i = 0; i < 3; i++) {
-                        if (Integer.parseInt(command[i + 1]) < range[i][0]) {
+                        if (Integer.parseInt(command[i + 1]) < RANGE[i][0]) {
                             ok = false;
                             error[i] = "Troppo bassa!!!";
-                        } else if (Integer.parseInt(command[i + 1]) > range[i][1]) {
+                        } else if (Integer.parseInt(command[i + 1]) > RANGE[i][1]) {
                             ok = false;
                             error[i] = "Troppo alta!!!";
                         } else {
@@ -90,14 +90,14 @@ public class Display {
                         System.out.println("Impostata temperatura alle: " + now);
                         for (int i = 0; i < 3; i++) {
                             temperatura[i] = Integer.parseInt(command[i + 1]);
-                            System.out.println("Temperatura " + nomeTemperatura[i] + ": " + temperatura[i]);
+                            System.out.println("Temperatura " + NOME_TEMPERATURA[i] + ": " + temperatura[i]);
                         }
                         yield "Temperatura regolata: " + now;
                     } else {
                         System.out.println("Errore per il client " + address + ". Temperature non impostate");
                         sb = new StringBuilder();
                         for (int i = 0; i < 3; i++) {
-                            sb.append(" Temperatura ").append(nomeTemperatura[i]).append(": ").append(error[i]);
+                            sb.append(" Temperatura ").append(NOME_TEMPERATURA[i]).append(": ").append(error[i]);
                         }
                         yield sb.toString();
                     }
@@ -106,7 +106,7 @@ public class Display {
                     // case R return the temperature
                     sb = new StringBuilder();
                     for (int i = 0; i < 3; i++) {
-                        sb.append(" Temperatura ").append(nomeTemperatura[i]).append(": ").append(temperatura[i]);
+                        sb.append(" Temperatura ").append(NOME_TEMPERATURA[i]).append(": ").append(temperatura[i]);
                     }
                     yield sb.toString();
                 }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Comando {
     private DatagramSocket socket;
     private byte[] bufferIN, bufferOUT;
-    private InetSocketAddress server;
+    private final InetSocketAddress server;
 
     public Comando(int port, String indirizzo, int portaServer){
         try{
