@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 public class ServerEsercitazione {
     private DatagramSocket socket;
     private byte[] bufferIN, bufferOUT;
-    private Map<String, AtomicInteger> counter;
-    private boolean differentPortsDifferentClients;
+    private final Map<String, AtomicInteger> clientRegister;
+    private final boolean differentPortsDifferentClients;
     public ServerEsercitazione(int porta, boolean differentPortsDifferentClients){
         try{
             socket = new DatagramSocket(porta);
@@ -20,7 +20,7 @@ public class ServerEsercitazione {
             System.out.println("Errore: " + e.getMessage());
         }
         bufferIN = new byte[1024];
-        counter = new HashMap<>();
+        clientRegister = new HashMap<>();
         this.differentPortsDifferentClients = differentPortsDifferentClients;
     }
     public void serve(){
@@ -35,18 +35,24 @@ public class ServerEsercitazione {
             }catch(IOException e){
                 System.err.println("Errore: " + e.getMessage());
             }
+            // the key for the register is the address of the client
+            // if the server is configured to consider different ports as different clients
+            // the key is the address and the port of the client
             key = receivePacket.getAddress().getHostAddress() +(differentPortsDifferentClients ? ":" + receivePacket.getPort() : "");
-            if(!counter.containsKey(key) && counter.size() >= 10)
+            if(!clientRegister.containsKey(key) && clientRegister.size() >= 10)
                 risposta = "Non posso fornire il servizio! Massimo numero di client raggiunto";
             else{
-                if(!counter.containsKey(key))
-                    counter.put(key, new AtomicInteger(0));
-                tmp = counter.get(key).incrementAndGet();
+                if(!clientRegister.containsKey(key))
+                    clientRegister.put(key, new AtomicInteger(0));
+
+                tmp = clientRegister.get(key).incrementAndGet();
                 if(tmp > 10)
                     risposta = "ha esaurito il bonus gratuito e da questo momento il servizio orario è a pagamento";
                 else
                     risposta = new java.util.Date().toString();
             }
+
+            // send the response
             bufferOUT = risposta.getBytes();
             sendPacket = new DatagramPacket(bufferOUT, bufferOUT.length, receivePacket.getAddress(), receivePacket.getPort());
             try{
@@ -54,14 +60,16 @@ public class ServerEsercitazione {
             }catch(IOException e){
                 System.err.println("Errore: " + e.getMessage());
             }
-            System.out.println("Map("+counter.size()+","+counter.keySet().stream()
-                    .map(ke -> ke + "=" + counter.get(ke))
+
+            // print the client register
+            System.out.println("Map("+ clientRegister.size()+","+ clientRegister.keySet().stream()
+                    .map(ke -> ke + "=" + clientRegister.get(ke))
                     .collect(Collectors.joining(", ", "{", "}"))+")");
         }
     }
 
     public static void main(String[] args) {
-        ServerEsercitazione server = new ServerEsercitazione(5000, false);
+        ServerEsercitazione server = new ServerEsercitazione(5000, true);
         server.serve();
     }
 }

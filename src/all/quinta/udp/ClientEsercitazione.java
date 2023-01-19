@@ -24,10 +24,10 @@ public class ClientEsercitazione {
         Scanner in = new Scanner(System.in);
         receivePacket = new DatagramPacket(bufferIN, bufferIN.length);
         String messaggio = "", risposta;
-        while(!messaggio.toUpperCase().equals("FINE")){
+        while(!messaggio.equalsIgnoreCase("FINE")){
             System.out.println("Inviare messaggio al server?(y/n)");
             messaggio = in.nextLine();
-            if(messaggio.toUpperCase().equals("Y")){
+            if(messaggio.equalsIgnoreCase("Y")){
                 bufferOUT = messaggio.getBytes();
                 sendPacket = new DatagramPacket(bufferOUT, bufferOUT.length, address);
                 try {
