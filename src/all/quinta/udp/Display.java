@@ -5,12 +5,16 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class Display {
     private final int[] temperatura = {40, 18, 12};
-    private static final String[] NOME_TEMPERATURA = {"acqua calda", "livello comfort", "livello economia"};
+    protected static final List<String> NOME_TEMPERATURA = List.of(
+            "acqua calda",
+            "livello comfort",
+            "livello economia"
+    );
     private static final int[][] RANGE = {
         {40, 55},
         {18, 30},
@@ -19,22 +23,27 @@ public class Display {
     private DatagramSocket socket;
     private byte[] bufferIN, bufferOUT;
     private final Map<InetSocketAddress, String> register;
+    private final Consumer<String> print;
 
-    public Display(int port){
+    public Display(int port, Consumer<String> print){
+        this.print = print;
         try{
             socket = new DatagramSocket(port);
         }catch(Exception e){
-            System.out.println("Errore: " + e.getMessage());
+            print.accept("Errore: " + e.getMessage());
         }
         bufferIN = new byte[1024];
         register = new HashMap<>();
     }
+    public int getTemperatura(int index){
+        return temperatura[index];
+    }
 
     public void serve(){
-        System.out.println("Server partito in esecuzione...");
-        System.out.println("Temperatura impostata: ");
+        print.accept("Server partito in esecuzione...");
+        print.accept("Temperatura impostata: ");
         for(int i = 0; i < temperatura.length; i++){
-            System.out.println("Temperatura " + NOME_TEMPERATURA[i] + ": " + temperatura[i]);
+            print.accept("Temperatura " + NOME_TEMPERATURA.get(i) + ": " + temperatura[i]);
         }
         DatagramPacket receivePacket, sendPacket;
         receivePacket = new DatagramPacket(bufferIN, bufferIN.length);
@@ -52,19 +61,19 @@ public class Display {
             } catch (Exception e) {
                 System.err.println("Errore: " + e.getMessage());
             }
-            now = LocalDateTime.now().format(formatter);
 
             // get the message
             messaggio = new String(receivePacket.getData());
             messaggio = messaggio.substring(0, receivePacket.getLength());
 
-            // get the address
+            // get the address and update the register
             address = (InetSocketAddress) receivePacket.getSocketAddress();
+            now = LocalDateTime.now().format(formatter);
             if (!register.containsKey(address)){
-                System.out.println("Nuovo client connesso: " + address);
+                print.accept("Nuovo client connesso: " + address);
             }else{
-                System.out.println("Client: " + address);
-                System.out.println("Ultimo accesso: " + register.get(address));
+                print.accept("Client: " + address);
+                print.accept("Ultimo accesso: " + register.get(address));
             }
             register.put(address, now);
 
@@ -87,17 +96,17 @@ public class Display {
                         }
                     }
                     if (ok) {
-                        System.out.println("Impostata temperatura alle: " + now);
+                        print.accept("Impostata temperatura alle: " + now);
                         for (int i = 0; i < 3; i++) {
                             temperatura[i] = Integer.parseInt(command[i + 1]);
-                            System.out.println("Temperatura " + NOME_TEMPERATURA[i] + ": " + temperatura[i]);
+                            print.accept("Temperatura " + NOME_TEMPERATURA.get(i) + ": " + temperatura[i]);
                         }
                         yield "Temperatura regolata: " + now;
                     } else {
-                        System.out.println("Errore per il client " + address + ". Temperature non impostate");
+                        print.accept("Errore per il client " + address + ". Temperature non impostate");
                         sb = new StringBuilder();
                         for (int i = 0; i < 3; i++) {
-                            sb.append(" Temperatura ").append(NOME_TEMPERATURA[i]).append(": ").append(error[i]);
+                            sb.append(" Temperatura ").append(NOME_TEMPERATURA.get(i)).append(": ").append(error[i]);
                         }
                         yield sb.toString();
                     }
@@ -106,7 +115,7 @@ public class Display {
                     // case R return the temperature
                     sb = new StringBuilder();
                     for (int i = 0; i < 3; i++) {
-                        sb.append(" Temperatura ").append(NOME_TEMPERATURA[i]).append(": ").append(temperatura[i]);
+                        sb.append(" Temperatura ").append(NOME_TEMPERATURA.get(i)).append(": ").append(temperatura[i]);
                     }
                     yield sb.toString();
                 }
@@ -125,7 +134,7 @@ public class Display {
     }
 
     public static void main(String[] args) {
-        Display server = new Display(60000);
+        Display server = new Display(60000, System.out::println);
         server.serve();
     }
 }

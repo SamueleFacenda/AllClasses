@@ -4,17 +4,20 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class Comando {
-    private DatagramSocket socket;
-    private byte[] bufferIN, bufferOUT;
+    protected DatagramSocket socket;
+    protected byte[] bufferIN, bufferOUT;
     private final InetSocketAddress server;
+    private final Consumer<String> print;
 
-    public Comando(int port, String indirizzo, int portaServer){
+    public Comando(int port, String indirizzo, int portaServer, Consumer<String> print){
+        this.print = print;
         try{
             socket = new DatagramSocket(port);
         }catch(Exception e){
-            System.out.println("Errore: " + e.getMessage());
+            print.accept("Errore: " + e.getMessage());
         }
         bufferIN = new byte[1024];
         server = new InetSocketAddress(indirizzo, portaServer);
@@ -26,7 +29,7 @@ public class Comando {
         boolean continua = true;
         DatagramPacket receivePacket, sendPacket;
         while(continua){
-            System.out.println("Inserire comando: R(ichiedi), T(emperatura), F(ine)");
+            print.accept("Inserire comando: R(ichiedi), T(emperatura), F(ine)");
             messaggio = in.nextLine();
             if(messaggio.equalsIgnoreCase("F")){
                 continua = false;
@@ -34,14 +37,14 @@ public class Comando {
                 if(messaggio.equalsIgnoreCase("R")){
                     messaggio = "R";
                 }else if(messaggio.equalsIgnoreCase("T")){
-                    System.out.println("Inserire temperatura acqua calda: ");
+                    print.accept("Inserire temperatura acqua calda: ");
                     messaggio = "T#" + in.nextLine();
-                    System.out.println("Inserire temperatura livello comfort: ");
+                    print.accept("Inserire temperatura livello comfort: ");
                     messaggio += "#" + in.nextLine();
-                    System.out.println("Inserire temperatura livello economico: ");
+                    print.accept("Inserire temperatura livello economico: ");
                     messaggio += "#" + in.nextLine();
                 }else{
-                    System.out.println("Comando non valido");
+                    print.accept("Comando non valido");
                     continue;
                 }
 
@@ -62,14 +65,18 @@ public class Comando {
                 }
                 risposta = new String(receivePacket.getData());
                 risposta = risposta.substring(0, receivePacket.getLength());
-                System.out.println("Ricevuto: " + risposta);
+                print.accept("Ricevuto: " + risposta);
             }
         }
-        System.out.println("Fine");
+        print.accept("Fine");
+    }
+
+    protected InetSocketAddress getServer(){
+        return server;
     }
 
     public static void main(String[] args) {
-        Comando comando = new Comando(5001, "localhost", 60000);
+        Comando comando = new Comando(5001, "localhost", 60000, System.out::println);
         comando.comunica();
     }
 }
